@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PetCare | Ejemplo de Pruebas de Software</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                🐾 EJEMPLO PRÁCTICO
+            </div>
+
+            <h1>
+                Pet<span>Care</span>
+            </h1>
+
+            <p>
+                Un pequeño sistema para comprender
+                cómo se aplican las pruebas de software.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================
+             INTRODUCCIÓN
+        ========================== -->
+
+        <section class="intro">
+
+            <span class="section-label">
+                EL ESCENARIO
+            </span>
+
+            <h2>
+                Antes de publicar una funcionalidad,
+                debemos comprobar que funciona.
+            </h2>
+
+            <p>
+                PetCare es una pequeña aplicación web para
+                registrar citas veterinarias. Utilizaremos
+                este ejemplo para recorrer un proceso básico
+                de pruebas de software.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             PROCESO
+        ========================== -->
+
+        <section class="process">
+
+            <!-- 01 -->
+
+            <article class="process-card">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="card-icon">
+                    🔎
+                </div>
+
+                <span>
+                    ANALIZAR
+                </span>
+
+                <h3>
+                    ¿Qué podría fallar?
+                </h3>
+
+                <p>
+                    Antes de probar necesitamos conocer
+                    qué hace la funcionalidad y qué
+                    situaciones podrían generar errores.
+                </p>
+
+                <div class="example">
+
+                    <strong>
+                        Ejemplo
+                    </strong>
+
+                    <p>
+                        ¿Qué ocurre si el usuario intenta
+                        registrar una cita con una fecha anterior?
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- 02 -->
+
+            <article class="process-card">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="card-icon">
+                    📝
+                </div>
+
+                <span>
+                    DISEÑAR
+                </span>
+
+                <h3>
+                    Definir el caso de prueba
+                </h3>
+
+                <p>
+                    Convertimos el posible error en un
+                    escenario concreto que podamos ejecutar.
+                </p>
+
+                <div class="example">
+
+                    <strong>
+                        Caso de prueba
+                    </strong>
+
+                    <p>
+                        Registrar una cita utilizando
+                        una fecha anterior a la actual.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- 03 -->
+
+            <article class="process-card">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="card-icon">
+                    👩🏻‍💻
+                </div>
+
+                <span>
+                    EJECUTAR
+                </span>
+
+                <h3>
+                    Realizar la prueba manual
+                </h3>
+
+                <p>
+                    Una persona interactúa con el sistema,
+                    introduce los datos y observa el resultado.
+                </p>
+
+                <div class="example">
+
+                    <strong>
+                        Resultado esperado
+                    </strong>
+
+                    <p>
+                        El sistema debe impedir el registro
+                        y mostrar un mensaje de validación.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- 04 -->
+
+            <article class="process-card">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <div class="card-icon">
+                    📋
+                </div>
+
+                <span>
+                    REGISTRAR
+                </span>
+
+                <h3>
+                    Comparar resultados
+                </h3>
+
+                <p>
+                    Comparamos lo que esperábamos obtener
+                    con lo que realmente ocurrió.
+                </p>
+
+                <div class="example">
+
+                    <strong>
+                        Resultado
+                    </strong>
+
+                    <p>
+                        ✔ La fecha fue rechazada.
+                        La prueba pasó correctamente.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================
+             AUTOMATIZACIÓN
+        ========================== -->
+
+        <section class="automation-section">
+
+            <div class="automation-title">
+
+                <div class="step-number automation-number">
+                    05
+                </div>
+
+                <div>
+
+                    <span>
+                        AUTOMATIZAR
+                    </span>
+
+                    <h3>
+                        ¿Qué cambia cuando automatizamos?
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="comparison">
+
+                <!-- PRUEBA MANUAL -->
+
+                <div class="comparison-card manual">
+
+                    <div class="comparison-header">
+
+                        <div class="comparison-icon">
+                            👩🏻‍💻
+                        </div>
+
+                        <div>
+
+                            <span>
+                                PRUEBA MANUAL
+                            </span>
+
+                            <h4>
+                                Una persona ejecuta
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="comparison-steps">
+
+                        <div>
+                            <b>1</b>
+                            Abrir PetCare
+                        </div>
+
+                        <div>
+                            <b>2</b>
+                            Ingresar datos
+                        </div>
+
+                        <div>
+                            <b>3</b>
+                            Seleccionar fecha
+                        </div>
+
+                        <div>
+                            <b>4</b>
+                            Verificar resultado
+                        </div>
+
+                    </div>
+
+
+                    <div class="comparison-note">
+                        👀 Requiere intervención humana
+                    </div>
+
+                </div>
+
+
+                <!-- PRUEBA AUTOMATIZADA -->
+
+                <div class="comparison-card automated">
+
+                    <div class="comparison-header">
+
+                        <div class="comparison-icon">
+                            🤖
+                        </div>
+
+                        <div>
+
+                            <span>
+                                PRUEBA AUTOMATIZADA
+                            </span>
+
+                            <h4>
+                                El código ejecuta
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="comparison-steps">
+
+                        <div>
+                            <b>1</b>
+                            Abrir aplicación
+                        </div>
+
+                        <div>
+                            <b>2</b>
+                            Ingresar datos
+                        </div>
+
+                        <div>
+                            <b>3</b>
+                            Ejecutar prueba
+                        </div>
+
+                        <div>
+                            <b>4</b>
+                            Verificar resultado
+                        </div>
+
+                    </div>
+
+
+                    <div class="comparison-note">
+                        ⚡ Puede repetirse rápidamente
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENSAJE CLAVE -->
+
+            <div class="automation-message">
+
+                <strong>
+                    🤔 Entonces, ¿cuál es mejor?
+                </strong>
+
+                <p>
+                    Ninguna reemplaza completamente a la otra.
+                    Las pruebas manuales son útiles para explorar
+                    y observar el comportamiento del sistema;
+                    las automatizadas son ideales para repetir
+                    verificaciones de forma rápida y consistente.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DEMOSTRACIÓN PETCARE
+        ========================== -->
+
+        <section class="demo-section">
+
+            <div class="demo-header">
+
+                <span class="section-label">
+                    AHORA PROBEMOS
+                </span>
+
+                <h2>
+                    Registro de cita veterinaria
+                </h2>
+
+                <p>
+                    Utiliza el formulario para simular
+                    una prueba manual.
+                </p>
+
+            </div>
+
+
+            <div class="demo-layout">
+
+                <!-- FORMULARIO -->
+
+                <div class="petcare-card">
+
+                    <div class="petcare-title">
+
+                        <div class="pet-icon">
+                            🐶
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Nueva cita
+                            </h3>
+
+                            <span>
+                                PetCare Veterinaria
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <form id="appointmentForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="owner">
+                                    Nombre del propietario
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="owner"
+                                    placeholder="Ej. María López"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="pet">
+                                    Nombre de la mascota
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="pet"
+                                    placeholder="Ej. Max"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="date">
+                                    Fecha de la cita
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="date"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="service">
+                                    Servicio
+                                </label>
+
+                                <select id="service">
+
+                                    <option value="">
+                                        Seleccionar servicio
+                                    </option>
+
+                                    <option value="consulta">
+                                        Consulta general
+                                    </option>
+
+                                    <option value="vacuna">
+                                        Vacunación
+                                    </option>
+
+                                    <option value="baño">
+                                        Baño y grooming
+                                    </option>
+
+                                    <option value="emergencia">
+                                        Emergencia
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit">
+                            Registrar cita
+                        </button>
+
+                    </form>
+
+
+                    <div
+                        id="result"
+                        class="result"
+                        aria-live="polite"
+                    ></div>
+
+                </div>
+
+
+                <!-- INFORMACIÓN -->
+
+                <aside class="test-info">
+
+                    <div class="info-icon">
+                        🧪
+                    </div>
+
+                    <span>
+                        CASO DE PRUEBA
+                    </span>
+
+                    <h3>
+                        Fecha anterior
+                    </h3>
+
+                    <p>
+                        Intenta registrar una cita utilizando
+                        una fecha anterior a la fecha actual.
+                    </p>
+
+
+                    <div class="expected">
+
+                        <strong>
+                            Resultado esperado
+                        </strong>
+
+                        <p>
+                            El sistema debe rechazar la cita
+                            y mostrar un mensaje indicando que
+                            la fecha no es válida.
+                        </p>
+
+                    </div>
+
+
+                    <div class="observation">
+
+                        <strong>
+                            👀 Observa
+                        </strong>
+
+                        <p>
+                            ¿El comportamiento real coincide
+                            con el resultado esperado?
+                        </p>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CIERRE
+        ========================== -->
+
+        <section class="closing">
+
+            <span>
+                🐾 IDEA CLAVE
+            </span>
+
+            <h2>
+                Manual y automatizada:
+                <strong>
+                    dos formas de comprobar la calidad.
+                </strong>
+            </h2>
+
+
+            <div class="final-process">
+
+                <div>
+
+                    <b>👩🏻‍💻</b>
+
+                    <span>
+                        Explorar
+                    </span>
+
+                </div>
+
+
+                <strong>
+                    +
+                </strong>
+
+
+                <div>
+
+                    <b>🤖</b>
+
+                    <span>
+                        Repetir
+                    </span>
+
+                </div>
+
+
+                <strong>
+                    =
+                </strong>
+
+
+                <div>
+
+                    <b>🛡️</b>
+
+                    <span>
+                        Mayor confianza
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            PetCare · Ejemplo educativo de Pruebas de Software
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

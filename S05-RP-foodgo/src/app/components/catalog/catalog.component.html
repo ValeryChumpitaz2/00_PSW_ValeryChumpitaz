@@ -1,0 +1,390 @@
+<div class="catalog-page">
+
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
+
+  <section class="catalog-hero">
+
+    <div class="hero-content">
+
+      <div class="hero-copy">
+
+        <span class="hero-kicker">
+          🍔 FOODGO
+        </span>
+
+        <h1>
+          ¿Qué se te antoja hoy?
+        </h1>
+
+        <p>
+          Descubre tus comidas favoritas y pide en pocos pasos.
+        </p>
+
+      </div>
+
+      <div class="hero-decoration">
+        🍕
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
+  <main class="catalog-container">
+
+
+    <!-- ===================================================
+         TOP
+         =================================================== -->
+
+    <div class="catalog-top">
+
+      <div>
+
+        <span class="section-label">
+          NUESTRO MENÚ
+        </span>
+
+        <h2>
+          Descubre nuestros favoritos
+        </h2>
+
+      </div>
+
+
+      <a
+        routerLink="/cart"
+        class="cart-button"
+      >
+
+        <span class="cart-button-icon">
+          🛒
+        </span>
+
+        <span class="cart-button-text">
+          Ver carrito
+        </span>
+
+      </a>
+
+    </div>
+
+
+    <!-- ===================================================
+         SEARCH
+         =================================================== -->
+
+    <div class="search-container">
+
+      <span class="search-icon">
+        🔎
+      </span>
+
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        placeholder="Buscar hamburguesas, pizzas, bebidas..."
+        aria-label="Buscar productos"
+      />
+
+      <button
+        type="button"
+        class="clear-search"
+        *ngIf="searchTerm"
+        (click)="clearSearch()"
+        aria-label="Limpiar búsqueda"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         CATEGORIES
+         =================================================== -->
+
+    <div class="categories-wrapper">
+
+      <button
+        type="button"
+        *ngFor="let category of categories"
+        class="category-button"
+        [class.active]="selectedCategory === category"
+        (click)="selectCategory(category)"
+      >
+
+        <span
+          class="category-icon"
+          *ngIf="category === 'Todos'"
+        >
+          ✨
+        </span>
+
+        <span
+          class="category-icon"
+          *ngIf="category === 'Hamburguesas'"
+        >
+          🍔
+        </span>
+
+        <span
+          class="category-icon"
+          *ngIf="category === 'Pizzas'"
+        >
+          🍕
+        </span>
+
+        <span
+          class="category-icon"
+          *ngIf="category === 'Bebidas'"
+        >
+          🥤
+        </span>
+
+        <span
+          class="category-icon"
+          *ngIf="category === 'Postres'"
+        >
+          🍰
+        </span>
+
+        <span>
+          {{ category }}
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         RESULTS
+         =================================================== -->
+
+    <div class="results-info">
+
+      <span>
+
+        <strong>
+          {{ filteredProducts.length }}
+        </strong>
+
+        {{
+          filteredProducts.length === 1
+            ? 'producto encontrado'
+            : 'productos encontrados'
+        }}
+
+      </span>
+
+
+      <span
+        class="selected-category"
+        *ngIf="selectedCategory !== 'Todos'"
+      >
+        {{ selectedCategory }}
+      </span>
+
+    </div>
+
+
+    <!-- ===================================================
+         PRODUCTS
+         =================================================== -->
+
+    <section class="products-grid">
+
+      <article
+        class="product-card"
+        *ngFor="let product of filteredProducts"
+      >
+
+        <!-- IMAGE -->
+
+        <div class="product-image">
+
+          <div class="image-circle">
+            {{ product.image }}
+          </div>
+
+          <span class="category-badge">
+            {{ product.category }}
+          </span>
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div class="product-content">
+
+          <div class="product-heading">
+
+            <h3>
+              {{ product.name }}
+            </h3>
+
+            <span class="product-price">
+              S/ {{ product.price.toFixed(2) }}
+            </span>
+
+          </div>
+
+
+          <p class="product-description">
+            {{ product.description }}
+          </p>
+
+
+          <div class="product-footer">
+
+            <span class="product-quality">
+
+              <span>
+                ★
+              </span>
+
+              Favorito
+
+            </span>
+
+
+            <button
+              type="button"
+              class="add-button"
+              (click)="addToCart(product)"
+            >
+
+              <span class="add-icon">
+                +
+              </span>
+
+              <span>
+                Agregar
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+
+    <!-- ===================================================
+         EMPTY SEARCH
+         =================================================== -->
+
+    <div
+      class="empty-products"
+      *ngIf="filteredProducts.length === 0"
+    >
+
+      <div class="empty-products-icon">
+        🔎
+      </div>
+
+      <h3>
+        No encontramos productos
+      </h3>
+
+      <p>
+        No hay productos que coincidan con tu búsqueda o categoría.
+      </p>
+
+      <button
+        type="button"
+        (click)="clearSearch(); selectCategory('Todos')"
+      >
+        Ver todos los productos
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         INFO
+         =================================================== -->
+
+    <section class="catalog-info">
+
+
+      <div class="info-item">
+
+        <span class="info-icon">
+          ⚡
+        </span>
+
+        <div>
+
+          <strong>
+            Preparación rápida
+          </strong>
+
+          <span>
+            Preparamos tu pedido con rapidez.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <span class="info-icon">
+          🛵
+        </span>
+
+        <div>
+
+          <strong>
+            Delivery
+          </strong>
+
+          <span>
+            Recibe tu comida donde quieras.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <span class="info-icon">
+          ❤️
+        </span>
+
+        <div>
+
+          <strong>
+            Tus favoritos
+          </strong>
+
+          <span>
+            Elige lo que más te gusta.
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+  </main>
+
+</div>

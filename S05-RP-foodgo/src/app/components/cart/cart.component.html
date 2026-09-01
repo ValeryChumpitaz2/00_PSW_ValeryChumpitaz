@@ -1,0 +1,229 @@
+<div class="cart-page">
+
+  <section class="cart-header">
+
+    <div class="cart-header-content">
+
+      <div>
+
+        <span class="hero-label">
+          FOODGO
+        </span>
+
+        <h1>
+          Mi carrito
+        </h1>
+
+        <p>
+          Revisa tus productos antes de continuar.
+        </p>
+
+      </div>
+
+      <div class="cart-header-icon">
+        🛒
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CARRITO VACÍO -->
+
+  <div
+    class="empty-cart"
+    *ngIf="items.length === 0"
+  >
+
+    <div class="empty-cart-icon">
+      🛒
+    </div>
+
+    <h2>
+      Tu carrito está vacío
+    </h2>
+
+    <p>
+      Agrega algunos productos para comenzar tu pedido.
+    </p>
+
+    <a routerLink="/catalog">
+      Ver catálogo
+    </a>
+
+  </div>
+
+
+  <!-- CARRITO CON PRODUCTOS -->
+
+  <main
+    class="cart-content"
+    *ngIf="items.length > 0"
+  >
+
+    <div class="cart-layout">
+
+
+      <!-- ITEMS -->
+
+      <section class="cart-items">
+
+        <article
+          class="cart-item"
+          *ngFor="let item of items"
+        >
+
+          <div class="cart-item-image">
+            {{ item.image }}
+          </div>
+
+
+          <div class="cart-item-info">
+
+            <h3>
+              {{ item.name }}
+            </h3>
+
+            <p>
+              {{ item.category }}
+            </p>
+
+            <div class="cart-item-price">
+              S/ {{ item.price.toFixed(2) }}
+              por unidad
+            </div>
+
+
+            <div class="quantity">
+
+              <button
+                type="button"
+                (click)="decrease(item.id)"
+              >
+                −
+              </button>
+
+              <span>
+                {{ item.quantity }}
+              </span>
+
+              <button
+                type="button"
+                (click)="increase(item.id)"
+              >
+                +
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="cart-item-total">
+
+            <strong>
+              S/
+              {{
+                (item.price * item.quantity)
+                  .toFixed(2)
+              }}
+            </strong>
+
+            <button
+              type="button"
+              class="remove-button"
+              (click)="remove(item.id)"
+            >
+              Eliminar
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <button
+          type="button"
+          class="clear-cart-button"
+          (click)="clear()"
+        >
+          🗑 Vaciar carrito
+        </button>
+
+      </section>
+
+
+      <!-- RESUMEN -->
+
+      <aside class="cart-summary">
+
+        <h2>
+          Resumen del pedido
+        </h2>
+
+
+        <div class="summary-row">
+
+          <span>
+            Subtotal
+          </span>
+
+          <strong>
+            S/ {{ subtotal.toFixed(2) }}
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Delivery
+          </span>
+
+          <strong>
+            S/ {{ delivery.toFixed(2) }}
+          </strong>
+
+        </div>
+
+
+        <div class="summary-divider"></div>
+
+
+        <div class="summary-total">
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+            S/ {{ total.toFixed(2) }}
+          </strong>
+
+        </div>
+
+
+        <a
+          routerLink="/checkout"
+          class="checkout-button"
+        >
+          Continuar al checkout
+        </a>
+
+
+        <a
+          routerLink="/catalog"
+          class="continue-shopping"
+        >
+          ← Seguir comprando
+        </a>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+</div>

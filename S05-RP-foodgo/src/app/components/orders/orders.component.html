@@ -1,0 +1,259 @@
+<div class="orders-page">
+
+  <!-- =========================================
+       HERO
+       ========================================= -->
+
+  <section class="orders-hero">
+
+    <div class="orders-hero-inner">
+
+      <div class="hero-main">
+
+        <div class="hero-icon">
+          📦
+        </div>
+
+        <div class="hero-text">
+
+          <span class="hero-label">
+            FOODGO
+          </span>
+
+          <h1>
+            Mis pedidos
+          </h1>
+
+          <p>
+            Revisa tus compras y consulta el estado de tus pedidos.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- CONTADOR DENTRO DEL HERO -->
+
+      <div class="orders-counter">
+
+        <strong>
+          {{ orders.length }}
+        </strong>
+
+        <span>
+          {{ orders.length === 1
+            ? 'pedido realizado'
+            : 'pedidos realizados'
+          }}
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================
+       CONTENIDO
+       ========================================= -->
+
+  <main class="orders-content">
+
+
+    <!-- =======================================
+         SIN PEDIDOS
+         ======================================= -->
+
+    <section
+      class="empty-orders"
+      *ngIf="orders.length === 0"
+    >
+
+      <div class="empty-icon">
+        📦
+      </div>
+
+      <h2>
+        Aún no tienes pedidos
+      </h2>
+
+      <p>
+        Cuando realices tu primera compra aparecerá aquí.
+      </p>
+
+      <a
+        routerLink="/catalog"
+        class="catalog-button"
+      >
+        🍔 Explorar menú
+      </a>
+
+    </section>
+
+
+    <!-- =======================================
+         PEDIDOS
+         ======================================= -->
+
+    <section
+      class="orders-grid"
+      *ngIf="orders.length > 0"
+    >
+
+      <article
+        class="order-card"
+        *ngFor="let order of orders"
+      >
+
+        <!-- CABECERA -->
+
+        <div class="card-header">
+
+          <div class="order-number">
+
+            <span>
+              PEDIDO
+            </span>
+
+            <strong>
+              {{ order.id }}
+            </strong>
+
+          </div>
+
+
+          <div class="status">
+            <span class="status-dot"></span>
+
+            {{ order.status }}
+          </div>
+
+        </div>
+
+
+        <!-- FECHA -->
+
+        <div class="order-date">
+
+          📅
+
+          <span>
+            {{ formatDate(order.date) }}
+          </span>
+
+        </div>
+
+
+        <!-- PRODUCTOS -->
+
+        <div class="products">
+
+          <div
+            class="product-row"
+            *ngFor="let item of order.items"
+          >
+
+            <div class="product-icon">
+              {{ item.image }}
+            </div>
+
+            <div class="product-info">
+
+              <strong>
+                {{ item.name }}
+              </strong>
+
+              <span>
+                {{ item.quantity }} ×
+                S/ {{ formatPrice(item.price) }}
+              </span>
+
+            </div>
+
+            <strong class="product-price">
+              S/
+              {{ formatPrice(item.price * item.quantity) }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- MÁS PRODUCTOS -->
+
+        <div
+          class="items-count"
+          *ngIf="order.items.length > 2"
+        >
+          {{ order.items.length }} productos en este pedido
+        </div>
+
+
+        <!-- ENTREGA -->
+
+        <div class="delivery-box">
+
+          <div class="delivery-icon">
+            📍
+          </div>
+
+          <div class="delivery-text">
+
+            <span>
+              ENTREGA
+            </span>
+
+            <strong>
+              {{ order.customer.address }}
+            </strong>
+
+            <small>
+              {{ order.customer.district }}
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="card-footer">
+
+          <div class="payment">
+
+            <span>
+              {{ getPaymentLabel(order.paymentMethod) }}
+            </span>
+
+            <small>
+              Pago
+            </small>
+
+          </div>
+
+
+          <div class="total">
+
+            <span>
+              Total
+            </span>
+
+            <strong>
+              S/ {{ formatPrice(order.total) }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+  </main>
+
+</div>

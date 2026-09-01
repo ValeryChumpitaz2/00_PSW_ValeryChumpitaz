@@ -1,0 +1,618 @@
+<div class="checkout-page">
+
+  <!-- HEADER -->
+
+  <section class="checkout-header">
+
+    <div class="checkout-header-content">
+
+      <div>
+
+        <span class="hero-label">
+          FOODGO
+        </span>
+
+        <h1>
+          Finaliza tu pedido
+        </h1>
+
+        <p>
+          Completa tus datos y confirma tu compra.
+        </p>
+
+      </div>
+
+      <div class="checkout-icon">
+        🧾
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PEDIDO COMPLETADO -->
+
+  <main
+    class="success-container"
+    *ngIf="successMessage"
+  >
+
+    <div class="success-card">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <span class="success-label">
+        PEDIDO CONFIRMADO
+      </span>
+
+      <h2>
+        {{ successMessage }}
+      </h2>
+
+      <p>
+        Tu pedido ha sido registrado correctamente.
+      </p>
+
+      <div class="order-number">
+
+        <span>
+          Número de pedido
+        </span>
+
+        <strong>
+          {{ orderId }}
+        </strong>
+
+      </div>
+
+      <div class="success-actions">
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="goToOrders()"
+        >
+          Ver mis pedidos
+        </button>
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="goToCatalog()"
+        >
+          Seguir comprando
+        </button>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- CHECKOUT -->
+
+  <main
+    class="checkout-content"
+    *ngIf="!successMessage"
+  >
+
+    <!-- CARRITO VACÍO -->
+
+    <div
+      class="empty-checkout"
+      *ngIf="items.length === 0"
+    >
+
+      <div class="empty-icon">
+        🛒
+      </div>
+
+      <h2>
+        No hay productos para comprar
+      </h2>
+
+      <p>
+        Agrega productos al carrito antes de realizar un pedido.
+      </p>
+
+      <a routerLink="/catalog">
+        Ir al catálogo
+      </a>
+
+    </div>
+
+
+    <!-- FORMULARIO -->
+
+    <div
+      class="checkout-layout"
+      *ngIf="items.length > 0"
+    >
+
+      <section class="checkout-form-card">
+
+        <div class="section-title">
+
+          <div class="section-number">
+            1
+          </div>
+
+          <div>
+
+            <h2>
+              Datos de entrega
+            </h2>
+
+            <p>
+              Indica dónde debemos entregar tu pedido.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <form
+          class="checkout-form"
+          (ngSubmit)="submitOrder()"
+          #checkoutForm="ngForm"
+        >
+
+          <!-- NOMBRE -->
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label for="name">
+                Nombre *
+              </label>
+
+              <input
+                id="name"
+                name="name"
+                type="text"
+                [(ngModel)]="form.name"
+                placeholder="Ingresa tu nombre"
+                autocomplete="given-name"
+              />
+
+            </div>
+
+
+            <!-- APELLIDO -->
+
+            <div class="form-group">
+
+              <label for="lastName">
+                Apellido *
+              </label>
+
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                [(ngModel)]="form.lastName"
+                placeholder="Ingresa tu apellido"
+                autocomplete="family-name"
+              />
+
+            </div>
+
+          </div>
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Correo electrónico *
+            </label>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              [(ngModel)]="form.email"
+              placeholder="correo@ejemplo.com"
+              autocomplete="email"
+            />
+
+          </div>
+
+
+          <!-- TELÉFONO -->
+
+          <div class="form-group">
+
+            <label for="phone">
+              Teléfono *
+            </label>
+
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              [(ngModel)]="form.phone"
+              placeholder="999999999"
+              maxlength="9"
+              inputmode="numeric"
+              autocomplete="tel"
+            />
+
+            <small>
+              Ingresa un teléfono de 9 dígitos.
+            </small>
+
+          </div>
+
+
+          <!-- DIRECCIÓN -->
+
+          <div class="form-group">
+
+            <label for="address">
+              Dirección *
+            </label>
+
+            <input
+              id="address"
+              name="address"
+              type="text"
+              [(ngModel)]="form.address"
+              placeholder="Av. / Jr. / Calle y número"
+              autocomplete="street-address"
+            />
+
+          </div>
+
+
+          <!-- DISTRITO -->
+
+          <div class="form-group">
+
+            <label for="district">
+              Distrito *
+            </label>
+
+            <select
+              id="district"
+              name="district"
+              [(ngModel)]="form.district"
+            >
+
+              <option
+                value=""
+                disabled
+              >
+                Selecciona un distrito
+              </option>
+
+              <option
+                *ngFor="let district of districts"
+                [value]="district"
+              >
+                {{ district }}
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- REFERENCIA -->
+
+          <div class="form-group">
+
+            <label for="reference">
+              Referencia
+              <span>(opcional)</span>
+            </label>
+
+            <textarea
+              id="reference"
+              name="reference"
+              [(ngModel)]="form.reference"
+              placeholder="Ej. Casa con puerta blanca..."
+              rows="3"
+            ></textarea>
+
+          </div>
+
+
+          <!-- MÉTODO DE PAGO -->
+
+          <div class="payment-section">
+
+            <div class="payment-title">
+
+              <div class="section-number">
+                2
+              </div>
+
+              <div>
+
+                <h2>
+                  Método de pago
+                </h2>
+
+                <p>
+                  Selecciona cómo deseas pagar.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="payment-options">
+
+              <label
+                class="payment-option"
+                [class.selected]="
+                  form.paymentMethod === 'Tarjeta'
+                "
+              >
+
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="Tarjeta"
+                  [(ngModel)]="form.paymentMethod"
+                />
+
+                <span class="payment-icon">
+                  💳
+                </span>
+
+                <span class="payment-text">
+
+                  <strong>
+                    Tarjeta
+                  </strong>
+
+                  <small>
+                    Débito o crédito
+                  </small>
+
+                </span>
+
+              </label>
+
+
+              <label
+                class="payment-option"
+                [class.selected]="
+                  form.paymentMethod === 'Yape'
+                "
+              >
+
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="Yape"
+                  [(ngModel)]="form.paymentMethod"
+                />
+
+                <span class="payment-icon">
+                  📱
+                </span>
+
+                <span class="payment-text">
+
+                  <strong>
+                    Yape
+                  </strong>
+
+                  <small>
+                    Pago digital
+                  </small>
+
+                </span>
+
+              </label>
+
+
+              <label
+                class="payment-option"
+                [class.selected]="
+                  form.paymentMethod === 'Efectivo'
+                "
+              >
+
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="Efectivo"
+                  [(ngModel)]="form.paymentMethod"
+                />
+
+                <span class="payment-icon">
+                  💵
+                </span>
+
+                <span class="payment-text">
+
+                  <strong>
+                    Efectivo
+                  </strong>
+
+                  <small>
+                    Pago contra entrega
+                  </small>
+
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+
+          <!-- ERROR -->
+
+          <div
+            class="error-message"
+            *ngIf="errorMessage"
+          >
+
+            <span class="error-icon">
+              !
+            </span>
+
+            <span>
+              {{ errorMessage }}
+            </span>
+
+          </div>
+
+
+          <!-- BOTÓN -->
+
+          <button
+            type="submit"
+            class="confirm-button"
+            [disabled]="isLoading"
+          >
+
+            <span *ngIf="!isLoading">
+              Confirmar pedido · S/
+              {{ total.toFixed(2) }}
+            </span>
+
+            <span *ngIf="isLoading">
+              Procesando pedido...
+            </span>
+
+          </button>
+
+
+          <a
+            routerLink="/cart"
+            class="back-cart"
+          >
+            ← Volver al carrito
+          </a>
+
+        </form>
+
+      </section>
+
+
+      <!-- RESUMEN -->
+
+      <aside class="order-summary">
+
+        <div class="summary-heading">
+
+          <h2>
+            Tu pedido
+          </h2>
+
+          <span>
+            {{ items.length }}
+            {{ items.length === 1 ? 'producto' : 'productos' }}
+          </span>
+
+        </div>
+
+
+        <div class="summary-items">
+
+          <div
+            class="summary-item"
+            *ngFor="let item of items"
+          >
+
+            <div class="summary-item-image">
+              {{ item.image }}
+            </div>
+
+            <div class="summary-item-info">
+
+              <strong>
+                {{ item.name }}
+              </strong>
+
+              <span>
+                {{ item.quantity }} ×
+                S/ {{ item.price.toFixed(2) }}
+              </span>
+
+            </div>
+
+            <strong class="summary-item-price">
+              S/
+              {{
+                (item.quantity * item.price)
+                  .toFixed(2)
+              }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="summary-divider"></div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Subtotal
+          </span>
+
+          <strong>
+            S/ {{ subtotal.toFixed(2) }}
+          </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+          <span>
+            Delivery
+          </span>
+
+          <strong>
+            S/ {{ delivery.toFixed(2) }}
+          </strong>
+
+        </div>
+
+
+        <div class="summary-divider"></div>
+
+
+        <div class="summary-total">
+
+          <span>
+            Total
+          </span>
+
+          <strong>
+            S/ {{ total.toFixed(2) }}
+          </strong>
+
+        </div>
+
+
+        <div class="secure-message">
+          🔒 Tus datos están protegidos.
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+</div>

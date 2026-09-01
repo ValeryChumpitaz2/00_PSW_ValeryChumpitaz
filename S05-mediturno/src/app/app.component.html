@@ -1,0 +1,869 @@
+<div class="app">
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="topbar">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        ✚
+      </div>
+
+      <div class="brand-text">
+        <h1>MediTurno</h1>
+        <p>Gestión de citas médicas</p>
+      </div>
+
+    </div>
+
+
+    <div class="system-status">
+
+      <span class="status-dot"></span>
+
+      Sistema de pruebas
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       CONTENIDO
+  ====================================================== -->
+
+  <main class="container">
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <span class="eyebrow">
+          PRUEBAS FUNCIONALES
+        </span>
+
+        <h2>
+          Gestión de citas
+          <span>médicas</span>
+        </h2>
+
+        <p>
+          Utiliza este sistema para comprobar si las funcionalidades
+          cumplen con el comportamiento esperado.
+        </p>
+
+      </div>
+
+
+      <div class="hero-card">
+
+        <div class="hero-number">
+          01
+        </div>
+
+        <div>
+
+          <span class="hero-label">
+            FUNCIONALIDAD
+          </span>
+
+          <strong>
+            Registrar una cita médica
+          </strong>
+
+          <p>
+            Prueba funcional
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         SELECTOR DE ENTORNO
+    ==================================================== -->
+
+    <section
+      class="version-panel"
+      [ngClass]="{
+        'bugs-mode': modoBugs,
+        'correct-mode': !modoBugs
+      }"
+    >
+
+      <div class="version-left">
+
+        <div class="version-icon">
+
+          {{ modoBugs ? '🐛' : '✓' }}
+
+        </div>
+
+
+        <div class="version-info">
+
+          <span class="eyebrow">
+            ENTORNO DE PRUEBA
+          </span>
+
+          <h3>
+
+            {{ modoBugs
+              ? 'Versión con bugs'
+              : 'Versión correcta'
+            }}
+
+          </h3>
+
+          <p>
+
+            {{ modoBugs
+              ? 'Esta versión contiene errores intencionales para detectar defectos.'
+              : 'Esta versión representa el comportamiento esperado del sistema.'
+            }}
+
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="bug-button"
+        (click)="cambiarModo()"
+      >
+
+        <span>
+          {{ modoBugs ? '✓' : '⚠' }}
+        </span>
+
+        {{ modoBugs
+          ? 'Probar versión correcta'
+          : 'Probar versión con bugs'
+        }}
+
+      </button>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         ESPACIO DE TRABAJO
+    ==================================================== -->
+
+    <section class="workspace">
+
+
+      <!-- =================================================
+           FORMULARIO
+      ================================================== -->
+
+      <div class="card form-card">
+
+        <div class="card-header">
+
+          <div class="card-icon form-icon">
+            📋
+          </div>
+
+          <div>
+
+            <span>
+              FUNCIONALIDAD
+            </span>
+
+            <h3>
+              Registrar cita
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <form
+          #formulario="ngForm"
+          (ngSubmit)="registrarCita()"
+        >
+
+
+          <!-- PACIENTE -->
+
+          <div class="field">
+
+            <label for="paciente">
+              Nombre del paciente
+            </label>
+
+            <input
+              id="paciente"
+              type="text"
+              [(ngModel)]="cita.paciente"
+              name="paciente"
+              placeholder="Ej. María López"
+              autocomplete="off"
+            >
+
+          </div>
+
+
+
+          <!-- FECHA -->
+
+          <div class="field">
+
+            <label for="fecha">
+              Fecha de la cita
+            </label>
+
+            <input
+              id="fecha"
+              type="date"
+              [(ngModel)]="cita.fecha"
+              name="fecha"
+            >
+
+          </div>
+
+
+
+          <!-- HORA -->
+
+          <div class="field">
+
+            <label for="hora">
+              Hora
+            </label>
+
+            <input
+              id="hora"
+              type="time"
+              [(ngModel)]="cita.hora"
+              name="hora"
+            >
+
+          </div>
+
+
+
+          <!-- ESPECIALIDAD -->
+
+          <div class="field">
+
+            <label for="especialidad">
+              Especialidad
+            </label>
+
+            <select
+              id="especialidad"
+              [(ngModel)]="cita.especialidad"
+              name="especialidad"
+            >
+
+              <option value="">
+                Seleccionar especialidad
+              </option>
+
+              <option value="Medicina General">
+                Medicina General
+              </option>
+
+              <option value="Pediatría">
+                Pediatría
+              </option>
+
+              <option value="Cardiología">
+                Cardiología
+              </option>
+
+              <option value="Dermatología">
+                Dermatología
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- BOTÓN -->
+
+          <button
+            type="submit"
+            class="register-button"
+          >
+
+            <span>+</span>
+
+            Registrar cita
+
+          </button>
+
+        </form>
+
+
+
+        <!-- =================================================
+             RESULTADO
+        ================================================== -->
+
+        <div
+          *ngIf="mensaje"
+          class="result"
+          [ngClass]="tipoMensaje"
+        >
+
+          <div class="result-icon">
+
+            {{ tipoMensaje === 'success' ? '✓' : '!' }}
+
+          </div>
+
+
+          <div class="result-content">
+
+            <strong>
+              {{ tituloMensaje }}
+            </strong>
+
+            <p>
+              {{ mensaje }}
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =================================================
+           CITAS REGISTRADAS
+      ================================================== -->
+
+      <div class="card appointments-card">
+
+        <div class="card-header">
+
+          <div class="card-icon calendar-icon">
+            📅
+          </div>
+
+          <div>
+
+            <span>
+              REGISTROS
+            </span>
+
+            <h3>
+              Citas registradas
+            </h3>
+
+          </div>
+
+          <div class="appointment-count">
+
+            {{ citas.length }}
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SIN CITAS -->
+
+        <div
+          class="empty"
+          *ngIf="citas.length === 0"
+        >
+
+          <div class="empty-circle">
+
+            <div class="empty-icon">
+              📅
+            </div>
+
+          </div>
+
+          <strong>
+            No hay citas registradas
+          </strong>
+
+          <p>
+            Las citas que registres aparecerán
+            automáticamente en esta sección.
+          </p>
+
+        </div>
+
+
+
+        <!-- TABLA -->
+
+        <div
+          class="table-container"
+          *ngIf="citas.length > 0"
+        >
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Paciente
+                </th>
+
+                <th>
+                  Fecha
+                </th>
+
+                <th>
+                  Hora
+                </th>
+
+                <th>
+                  Especialidad
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr *ngFor="let item of citas">
+
+                <td>
+
+                  <div class="patient">
+
+                    <div class="patient-avatar">
+
+                      {{ obtenerInicial(item.paciente) }}
+
+                    </div>
+
+                    <strong>
+                      {{ item.paciente }}
+                    </strong>
+
+                  </div>
+
+                </td>
+
+
+                <td>
+                  {{ item.fecha }}
+                </td>
+
+
+                <td>
+
+                  <span class="time-badge">
+                    🕐 {{ item.hora }}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <span class="specialty">
+                    {{ item.especialidad }}
+                  </span>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         PROCESO DE VALIDACIÓN
+    ==================================================== -->
+
+    <section class="testing-panel">
+
+
+      <!-- ENCABEZADO -->
+
+      <div class="testing-title">
+
+        <div class="testing-title-icon">
+          🔎
+        </div>
+
+        <div>
+
+          <span>
+            PROCESO DE VALIDACIÓN
+          </span>
+
+          <h3>
+            ¿Qué estamos probando?
+          </h3>
+
+          <p>
+            Analizamos cada etapa para comprobar que el sistema
+            responda de acuerdo con lo esperado.
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =================================================
+           TARJETAS
+      ================================================== -->
+
+      <div class="testing-cards">
+
+
+        <!-- ENTRADA -->
+
+        <article class="test-card test-input">
+
+          <div class="test-card-header">
+
+            <span class="test-number">
+              01
+            </span>
+
+            <span class="test-status">
+              ENTRADA
+            </span>
+
+          </div>
+
+
+          <div class="test-icon">
+            📝
+          </div>
+
+
+          <h4>
+            Datos de entrada
+          </h4>
+
+
+          <p>
+            El usuario introduce los datos necesarios
+            para registrar una nueva cita médica.
+          </p>
+
+
+          <div class="test-question">
+
+            <span>?</span>
+
+            ¿Qué información recibe el sistema?
+
+          </div>
+
+        </article>
+
+
+
+        <!-- ESPERADO -->
+
+        <article class="test-card test-expected">
+
+          <div class="test-card-header">
+
+            <span class="test-number">
+              02
+            </span>
+
+            <span class="test-status">
+              ESPERADO
+            </span>
+
+          </div>
+
+
+          <div class="test-icon">
+            🎯
+          </div>
+
+
+          <h4>
+            Resultado esperado
+          </h4>
+
+
+          <p>
+            Definimos qué debería hacer el sistema
+            cuando recibe información válida o incorrecta.
+          </p>
+
+
+          <div class="test-question">
+
+            <span>?</span>
+
+            ¿Qué debería suceder?
+
+          </div>
+
+        </article>
+
+
+
+        <!-- OBTENIDO -->
+
+        <article class="test-card test-obtained">
+
+          <div class="test-card-header">
+
+            <span class="test-number">
+              03
+            </span>
+
+            <span class="test-status">
+              OBTENIDO
+            </span>
+
+          </div>
+
+
+          <div class="test-icon">
+            🔬
+          </div>
+
+
+          <h4>
+            Resultado obtenido
+          </h4>
+
+
+          <p>
+            Ejecutamos la funcionalidad y observamos
+            el comportamiento real de la aplicación.
+          </p>
+
+
+          <div class="test-question">
+
+            <span>?</span>
+
+            ¿Qué hizo realmente el sistema?
+
+          </div>
+
+        </article>
+
+
+
+        <!-- DEFECTO -->
+
+        <article class="test-card test-bug">
+
+          <div class="test-card-header">
+
+            <span class="test-number">
+              04
+            </span>
+
+            <span class="test-status">
+              DEFECTO
+            </span>
+
+          </div>
+
+
+          <div class="test-icon">
+            🐛
+          </div>
+
+
+          <h4>
+            Detección de defectos
+          </h4>
+
+
+          <p>
+            Comparamos el resultado obtenido con
+            el comportamiento esperado para encontrar errores.
+          </p>
+
+
+          <div class="test-question">
+
+            <span>?</span>
+
+            ¿Existe alguna diferencia?
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+
+
+      <!-- =================================================
+           OBJETIVO
+      ================================================== -->
+
+      <div class="testing-objective">
+
+        <div class="objective-icon">
+          ✓
+        </div>
+
+        <div>
+
+          <span>
+            OBJETIVO DE LA PRUEBA
+          </span>
+
+          <strong>
+            Comparar lo esperado con lo obtenido
+          </strong>
+
+          <p>
+            Si ambos resultados coinciden, la funcionalidad
+            se comporta correctamente. Si existe una diferencia,
+            debemos investigar un posible defecto.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         CIERRE
+    ==================================================== -->
+
+    <section class="closing">
+
+      <span>
+        ESTRATEGIA DE PRUEBAS
+      </span>
+
+
+      <h2>
+
+        No basta con que el sistema
+        <strong>funcione.</strong>
+
+        Debemos comprobar que
+        <strong>funcione correctamente.</strong>
+
+      </h2>
+
+
+      <div class="process">
+
+
+        <div>
+          <b>1</b>
+          Analizar
+        </div>
+
+
+        <span>→</span>
+
+
+        <div>
+          <b>2</b>
+          Diseñar
+        </div>
+
+
+        <span>→</span>
+
+
+        <div>
+          <b>3</b>
+          Ejecutar
+        </div>
+
+
+        <span>→</span>
+
+
+        <div>
+          <b>4</b>
+          Detectar
+        </div>
+
+
+        <span>→</span>
+
+
+        <div>
+          <b>5</b>
+          Reportar
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer>
+
+    <div class="footer-content">
+
+      <strong>
+        MediTurno
+      </strong>
+
+      <span>
+        ·
+      </span>
+
+      Entorno educativo para pruebas de software
+
+    </div>
+
+  </footer>
+
+</div>

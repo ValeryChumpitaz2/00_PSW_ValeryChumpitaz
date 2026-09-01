@@ -1,0 +1,279 @@
+<header class="main-header">
+
+  <div class="header-container">
+
+    <!-- LOGO -->
+
+    <a
+      routerLink="/catalog"
+      class="brand"
+      (click)="closeMobileMenu()"
+    >
+
+      <div class="brand-icon">
+        🍔
+      </div>
+
+      <div class="brand-info">
+        <strong>FoodGo</strong>
+        <span>Tu comida favorita</span>
+      </div>
+
+    </a>
+
+
+    <!-- NAVEGACIÓN DESKTOP -->
+
+    <nav class="desktop-nav">
+
+      <a
+        routerLink="/catalog"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+
+        <span class="nav-icon">
+          🍔
+        </span>
+
+        <span>
+          Menú
+        </span>
+
+      </a>
+
+
+      <a
+        routerLink="/orders"
+        routerLinkActive="active"
+      >
+
+        <span class="nav-icon">
+          📦
+        </span>
+
+        <span>
+          Mis pedidos
+        </span>
+
+      </a>
+
+    </nav>
+
+
+    <!-- ACCIONES -->
+
+    <div class="header-actions">
+
+
+      <!-- CARRITO -->
+
+      <a
+        routerLink="/cart"
+        class="cart-button"
+        aria-label="Ver carrito"
+      >
+
+        <span class="cart-icon">
+          🛒
+        </span>
+
+        <span class="cart-label">
+          Carrito
+        </span>
+
+        <span
+          class="cart-badge"
+          *ngIf="cartCount > 0"
+        >
+          {{ cartCount > 99 ? '99+' : cartCount }}
+        </span>
+
+      </a>
+
+
+      <!-- USUARIO -->
+
+      <div class="user-area">
+
+        <div class="user-avatar">
+          {{ userName.charAt(0).toUpperCase() }}
+        </div>
+
+        <div class="user-info">
+
+          <span>
+            Bienvenido
+          </span>
+
+          <strong>
+            {{ userName }}
+          </strong>
+
+        </div>
+
+        <button
+          type="button"
+          class="logout-button"
+          (click)="logout()"
+          title="Cerrar sesión"
+          aria-label="Cerrar sesión"
+        >
+          ↪
+        </button>
+
+      </div>
+
+
+      <!-- MENU MOBILE -->
+
+      <button
+        type="button"
+        class="mobile-menu-button"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="mobileMenuOpen"
+        aria-label="Abrir menú"
+      >
+
+        <span
+          [class.open]="mobileMenuOpen"
+        ></span>
+
+        <span
+          [class.open]="mobileMenuOpen"
+        ></span>
+
+        <span
+          [class.open]="mobileMenuOpen"
+        ></span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- MENU MOBILE -->
+
+  <div
+    class="mobile-menu"
+    [class.open]="mobileMenuOpen"
+  >
+
+    <nav class="mobile-nav">
+
+
+      <!-- MENÚ -->
+
+      <a
+        routerLink="/catalog"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMobileMenu()"
+      >
+
+        <span>
+          🍔
+        </span>
+
+        <div>
+
+          <strong>
+            Menú
+          </strong>
+
+          <small>
+            Explora nuestros productos
+          </small>
+
+        </div>
+
+      </a>
+
+
+      <!-- CARRITO -->
+
+      <a
+        routerLink="/cart"
+        routerLinkActive="active"
+        (click)="closeMobileMenu()"
+      >
+
+        <span>
+          🛒
+        </span>
+
+        <div>
+
+          <strong>
+            Carrito
+          </strong>
+
+          <small>
+            {{ cartCount }} productos
+          </small>
+
+        </div>
+
+      </a>
+
+
+      <!-- PEDIDOS -->
+
+      <a
+        routerLink="/orders"
+        routerLinkActive="active"
+        (click)="closeMobileMenu()"
+      >
+
+        <span>
+          📦
+        </span>
+
+        <div>
+
+          <strong>
+            Mis pedidos
+          </strong>
+
+          <small>
+            Consulta tus compras
+          </small>
+
+        </div>
+
+      </a>
+
+
+      <!-- CERRAR SESIÓN -->
+
+      <button
+        type="button"
+        class="mobile-logout"
+        (click)="logout()"
+      >
+
+        <span>
+          ↪
+        </span>
+
+        <div>
+
+          <strong>
+            Cerrar sesión
+          </strong>
+
+          <small>
+            Salir de FoodGo
+          </small>
+
+        </div>
+
+      </button>
+
+    </nav>
+
+  </div>
+
+</header>
